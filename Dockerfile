@@ -50,23 +50,23 @@ RUN mkdir -p /home/comfyui/models/checkpoints \
              /home/comfyui/models/clip_vision
 
 # Download IPAdapter models (ARG only, not exposed as ENV)
-ARG CIVITAI_TOKEN
+ENV CIVITAI_TOKEN=715db9acbf5c71d8c82fc7cfc8ce2529
 
 RUN echo "Downloading IPAdapter FaceID..." && \
     curl -L -o /home/comfyui/models/ipadapter/ip-adapter-faceid_sdxl.bin \
-        "https://civitai.com/api/download/models/215861?token=${CIVITAI_TOKEN}" && \
+        "https://civitai.com/api/download/models/215861?token=715db9acbf5c71d8c82fc7cfc8ce2529" && \
     echo "Downloading CLIP Vision..." && \
     curl -L -o /home/comfyui/models/clip_vision/CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors \
-        "https://civitai.com/api/download/models/212354?token=${CIVITAI_TOKEN}" && \
+        "https://civitai.com/api/download/models/212354?token=715db9acbf5c71d8c82fc7cfc8ce2529" && \
     echo "Downloading IPAdapter Plus..." && \
     curl -L -o /home/comfyui/models/ipadapter/ip-adapter-plus_sdxl_vit-h.safetensors \
-        "https://civitai.com/api/download/models/247653?token=${CIVITAI_TOKEN}"
+        "https://civitai.com/api/download/models/247653?token=715db9acbf5c71d8c82fc7cfc8ce2529"
 
 # Download Lustify V7 (NSFW)
 ARG LUSTIFY_MODEL_ID=2155386
 RUN echo "Downloading Lustify SDXL V7..." && \
     curl -L -o /home/comfyui/models/checkpoints/lustifySDXLNSFW_ggwpV7.safetensors \
-        "https://civitai.com/api/download/models/${LUSTIFY_MODEL_ID}?token=${CIVITAI_TOKEN}"
+        "https://civitai.com/api/download/models/${LUSTIFY_MODEL_ID}?token=715db9acbf5c71d8c82fc7cfc8ce2529"
 
 # Download base SDXL model
 RUN echo "Downloading base SDXL model..." && \
@@ -85,7 +85,7 @@ RUN echo "Downloading T5 XXL CLIP model..." && \
 # Copy custom nodes
 RUN mkdir -p /home/comfyui/custom_nodes && \
     git clone https://github.com/cubiq/ComfyUI_IPAdapter_plus.git /home/comfyui/custom_nodes/ComfyUI_IPAdapter_plus && \
-    git clone https://github.com/latent-consistency/latent-consistency.git /home/comfyui/custom_nodes/latent-consistency
+    git clone https://github.com/luosiallen/latent-consistency-model.git /home/comfyui/custom_nodes/latent-consistency-model
 
 # Copy workflow and handler
 COPY --chmod=755 handler.py /home/comfyui/handler.py
